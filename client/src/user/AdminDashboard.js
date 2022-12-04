@@ -47,7 +47,7 @@ const AdminDashboard = () => {
           <li className='list-group-item'>{name}</li>
           <li className='list-group-item'>{email}</li>
           <li className='list-group-item'>
-            {role === 1 ? 'Registered User' : 'Registered user'}
+            {role === 2 ? 'Administrator'  : 'Registered user'}
           </li>
         </ul>
       </div>

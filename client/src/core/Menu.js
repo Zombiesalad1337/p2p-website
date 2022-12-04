@@ -178,11 +178,11 @@ const MaterialAppBar = ({ history }) => {
           </Link>
         </MenuItem>
 
-        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
           <MenuItem>
             <Link
-              style={isActive(history, '/user/dashboard')}
-              to='/user/dashboard'
+              style={isActive(history, '/admin/dashboard')}
+              to='/admin/dashboard'
             >
               <IconButton aria-label='Dashboard' color='inherit'>
                 <DashboardIcon />
@@ -192,7 +192,7 @@ const MaterialAppBar = ({ history }) => {
           </MenuItem>
         )}
 
-        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+        {isAuthenticated() && isAuthenticated().user.role === 2 && (
           <MenuItem>
             <Link
               style={isActive(history, '/admin/dashboard')}
@@ -294,10 +294,10 @@ const MaterialAppBar = ({ history }) => {
               </IconButton>
             </Link>
 
-            {isAuthenticated() && isAuthenticated().user.role === 0 && (
+            {isAuthenticated() && isAuthenticated().user.role === 1 && (
               <Link
-                style={isActive(history, '/user/dashboard')}
-                to='/user/dashboard'
+                style={isActive(history, '/admin/dashboard')}
+                to='/admin/dashboard'
               >
                 <IconButton aria-label='Dashboard' color='inherit'>
                   <DashboardIcon />
@@ -306,7 +306,7 @@ const MaterialAppBar = ({ history }) => {
               </Link>
             )}
 
-            {isAuthenticated() && isAuthenticated().user.role === 1 && (
+            {isAuthenticated() && isAuthenticated().user.role === 2 && (
               <Link
                 style={isActive(history, '/admin/dashboard')}
                 to='/admin/dashboard'

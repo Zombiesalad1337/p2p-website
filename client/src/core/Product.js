@@ -37,6 +37,7 @@ const Product = (props) => {
       description={
         product && product.description && product.description.substring(0, 100)
       }
+    sellerName = {product.sellerName}
       className='container-fluid'
     >
       <div className='row'>

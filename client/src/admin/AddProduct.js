@@ -13,6 +13,7 @@ const AddProduct = () => {
     category: '',
     shipping: '',
     quantity: '',
+    seller: '',
     photo: '',
     loading: false,
     error: '',
@@ -30,6 +31,7 @@ const AddProduct = () => {
     categories,
     category,
     shipping,
+    seller,
     quantity,
     photo,
     loading,
@@ -61,16 +63,19 @@ const AddProduct = () => {
   const handleChange = (name) => (event) => {
     const value = name === 'photo' ? event.target.files[0] : event.target.value;
     formData.set(name, value);
+    formData.set("seller", user._id);
+    formData.set("sellerName", user.name);
+    //console.log(user._id)
     setValues({ ...values, [name]: value });
   };
 
   const clickSubmit = (event) => {
     event.preventDefault();
-    setValues({ ...values, error: '', loading: true });
-
+    setValues({ ...values, error: '', seller: user._id, loading: true });
+    console.log(formData); 
     createProduct(user._id, token, formData).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, seller: user._id, error: data.error });
       } else {
         setValues({
           ...values,
@@ -78,6 +83,7 @@ const AddProduct = () => {
           description: '',
           photo: '',
           price: '',
+          seller: '',
           quantity: '',
           loading: false,
           createdProduct: data.name,
@@ -109,6 +115,7 @@ const AddProduct = () => {
           value={name}
         />
       </div>
+
 
       <div className='form-group'>
         <label className='text-muted'>Description</label>

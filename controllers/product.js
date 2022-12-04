@@ -33,7 +33,7 @@ exports.create = (req, res) => {
       });
     }
     // check for all fields
-    const { name, description, price, category, quantity, shipping } = fields;
+    const { name, description, price, seller, category, quantity, shipping } = fields;
 
     if (
       !name ||

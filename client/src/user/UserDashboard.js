@@ -56,7 +56,7 @@ const Dashboard = () => {
           <li className='list-group-item'>{name}</li>
           <li className='list-group-item'>{email}</li>
           <li className='list-group-item'>
-            {role === 1 ? 'Admin' : 'Registered user'}
+            {role === 1 && 'Registered User' || role === 2 && 'Administrator'}
           </li>
         </ul>
       </div>

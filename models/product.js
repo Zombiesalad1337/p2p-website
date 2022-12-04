@@ -14,6 +14,15 @@ const productSchema = new mongoose.Schema(
       required: true,
       maxlength: 2000,
     },
+    seller: {
+      type: ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    sellerName: {
+      type: String,
+      required: true,
+    },
     price: {
       type: Number,
       trim: true,
