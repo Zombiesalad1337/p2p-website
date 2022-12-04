@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "ecommerce site",
   "main": "server.js",
+  "engines": {
+    "node": "16.7.0",
+    "npm": "8.19.2"
+},
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
@@ -15,8 +19,6 @@
     "url": "git+https://github.com/ashraf-kabir/mern-ecommerce.git"
   },
   "keywords": [],
-  "author": "Ashraf Kabir",
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
@@ -25,6 +27,7 @@
     "config": "^3.3.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "crpyto": "^0.0.1-security",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
@@ -36,6 +39,7 @@
     "mongoose": "^5.9.24",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
+    "razorpay": "^2.8.4",
     "uuid": "^8.2.0",
     "uuidv1": "^1.6.14"
   }

@@ -67,7 +67,6 @@ const Home = () => {
         <div className='col-md-1'></div>
       </div>
 
-      <Copyright />
     </Layout>
   );
 };
