@@ -11,6 +11,7 @@ const Orders = () => {
   const { user, token } = isAuthenticated();
 
   const loadOrders = () => {
+    console.log('loading orders')
     listOrders(user._id, token).then((data) => {
       if (data.error) {
         console.log(data.error);
@@ -89,9 +90,9 @@ const Orders = () => {
     >
       <div className='row'>
         <div className='col-md-8 offset-md-2'>
-          {showOrdersLength(orders.filter((o) => {if (user.role === 1) {return o.user === user._id} return true}))}
+          {showOrdersLength(orders.filter((o) => {if (user.role === 1) {return o.user._id === user._id} return true}))}
 
-          {orders.filter((o) => {if (user.role === 1) {return o.user === user._id} return true}).map((o, oIndex) => {
+          {orders.filter((o) => {if (user.role === 1) {return o.user._id === user._id} return true}).map((o, oIndex) => {
             return (
               <div
                 className='mt-5'
