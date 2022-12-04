@@ -13,7 +13,6 @@ const Layout = ({
     <Menu />
     <div className='jumbotron mt-5'>
       <h2>{title}</h2>
-      <h3> Seller: {sellerName} </h3>
       <p className='lead'>{description}</p>
     </div>
     <div className={className}>{children}</div>
