@@ -5,6 +5,36 @@ import { Link } from 'react-router-dom';
 import { listOrders, getStatusValues, updateOrderStatus } from './apiAdmin';
 import moment from 'moment';
 
+const purchaseHistory = (history) => {
+  return (
+    <div className='card mb-5'>
+      <h3 className='card-header'>Purchase history</h3>
+      <ul className='list-group'>
+        <li className='list-group-item'>
+          {history.map((h, i) => {
+            return (
+              <div>
+                <hr />
+                {h.products.map((p, i) => {
+                  return (
+                    <div key={i}>
+                      <h6>Product name: {p.name}</h6>
+                      <h6>Product price: ${p.price}</h6>
+                      <h6>Purchased date: {moment(p.createdAt).fromNow()}</h6>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [statusValues, setStatusValues] = useState([]);
@@ -69,6 +99,11 @@ const Orders = () => {
   const showStatus = (o) => (
     <div className='form-group'>
       <h3 className='mark mb-4'>Status: {o.status}</h3>
+    </div>
+  );
+  const showStatusAdmin = (o) => (
+    <div className='form-group'>
+      <h3 className='mark mb-4'>Status: {o.status}</h3>
       <select
         className='form-control'orders
         onChange={(e) => handleStatusChange(e, o._id)}
@@ -92,7 +127,7 @@ const Orders = () => {
         <div className='col-md-8 offset-md-2'>
           {showOrdersLength(orders.filter((o) => {if (user.role === 1) {return o.user._id === user._id} return true}))}
 
-          {orders.filter((o) => {if (user.role === 1) {return o.user._id === user._id} return true}).map((o, oIndex) => {
+          {user.role === 1 && orders.filter((o) => {return o.user._id === user._id}).map((o, oIndex) => {
             return (
               <div
                 className='mt-5'
@@ -108,7 +143,52 @@ const Orders = () => {
                   <li className='list-group-item'>
                     Transaction ID: {o.transaction_id}
                   </li>
-                  <li className='list-group-item'>Amount: ${o.amount}</li>
+                  <li className='list-group-item'>Amount: ₹{o.amount}</li>
+                  <li className='list-group-item'>
+                    Ordered on: {moment(o.createdAt).fromNow()}
+                  </li>
+                  <li className='list-group-item'>
+                    Delivery address: {o.address}
+                  </li>
+                </ul>
+
+                <h3 className='mt-4 mb-4 font-italic'>
+                  Total products in the order: {o.products.length}
+                </h3>
+
+                {o.products.map((p, pIndex) => (
+                  <div
+                    className='mb-4'
+                    key={pIndex}
+                    style={{ padding: '20px', border: '1px solid indigo' }}
+                  >
+                    {showInput('Product name', p.name)}
+                    {showInput('Product price', p.price)}
+                    {showInput('Product total', p.count)}
+                    {showInput('Product Id', p._id)}
+                  </div>
+                ))}
+              </div>
+            );
+          })
+          }
+          {user.role === 2 && orders.map((o, oIndex) => {
+            return (
+              <div
+                className='mt-5'
+                key={oIndex}
+                style={{ borderBottom: '5px solid indigo' }}
+              >
+                <h2 className='mb-5'>
+                  <span className='bg-primary'>Order ID: {o._id}</span>
+                </h2>
+
+                <ul className='list-group mb-2'>
+                  <li className='list-group-item'>{showStatusAdmin(o)}</li>
+                  <li className='list-group-item'>
+                    Transaction ID: {o.transaction_id}
+                  </li>
+                  <li className='list-group-item'>Amount: ₹{o.amount}</li>
                   <li className='list-group-item'>Ordered by: {o.user.name}</li>
                   <li className='list-group-item'>
                     Ordered on: {moment(o.createdAt).fromNow()}
@@ -136,7 +216,8 @@ const Orders = () => {
                 ))}
               </div>
             );
-          })}
+          })
+          }
         </div>
       </div>
     </Layout>
