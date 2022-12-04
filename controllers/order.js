@@ -21,6 +21,7 @@ exports.create = (req, res) => {
   const order = new Order(req.body.order);
   order.save((error, data) => {
     if (error) {
+      console.log(error);
       return res.status(400).json({
         error: errorHandler(error),
       });

@@ -35,7 +35,7 @@ const Orders = () => {
     loadStatusValues();
   }, []);
 
-  const showOrdersLength = () => {
+  const showOrdersLength = (orders) => {
     if (orders.length > 0) {
       return (
         <h1 className='text-danger display-2'>Total orders: {orders.length}</h1>
@@ -69,7 +69,7 @@ const Orders = () => {
     <div className='form-group'>
       <h3 className='mark mb-4'>Status: {o.status}</h3>
       <select
-        className='form-control'
+        className='form-control'orders
         onChange={(e) => handleStatusChange(e, o._id)}
       >
         <option>Update Status</option>
@@ -85,13 +85,13 @@ const Orders = () => {
   return (
     <Layout
       title='Orders'
-      description={`Hey ${user.name}, you can manage all the ordes here`}
+      description={`Hey ${user.name}, you can manage all the orders here`}
     >
       <div className='row'>
         <div className='col-md-8 offset-md-2'>
-          {showOrdersLength()}
+          {showOrdersLength(orders.filter((o) => {if (user.role === 1) {return o.user === user._id} return true}))}
 
-          {orders.map((o, oIndex) => {
+          {orders.filter((o) => {if (user.role === 1) {return o.user === user._id} return true}).map((o, oIndex) => {
             return (
               <div
                 className='mt-5'

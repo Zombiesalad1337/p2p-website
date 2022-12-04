@@ -49,6 +49,10 @@ const productSchema = new mongoose.Schema(
       required: false,
       type: Boolean,
     },
+    sold: {
+      required: false,
+      type: Boolean,
+    }
   },
   { timestamps: true }
 );

@@ -41,10 +41,10 @@ const ManageProducts = () => {
     >
       <div className='row'>
         <div className='col-12'>
-          <h2 className='text-center'>Total {products.length} products</h2>
+          <h2 className='text-center'>Total {products.filter((p) => {if (user.role === 1) {return p.seller === user._id} return true}).length} products</h2>
           <hr />
           <ul className='list-group'>
-            {products.filter((p) => p.seller === user._id).map((p, i) => (
+            {products.filter((p) => {if (user.role === 1) {return p.seller === user._id} return true}).map((p, i) => (
               <li
                 key={i}
                 className='list-group-item d-flex justify-content-between align-items-center'

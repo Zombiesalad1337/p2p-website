@@ -11,6 +11,8 @@ import Card from './Card';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
+import { deleteProduct } from '../admin/apiAdmin';
+
 
 const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
   const [data, setData] = useState({
@@ -38,7 +40,7 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
   };
 
   useEffect(() => {
-    getToken(userId, token);
+    //getToken(userId, token);
   }, []);
 
   const handleAddress = (event) => {
@@ -62,6 +64,16 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
       </Link>
     );
   };
+    const destroy = (productId) => {
+    deleteProduct(productId, userId, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        getProducts();
+      }
+    });
+  };
+
 
   let deliveryAddress = data.address;
 
@@ -69,12 +81,12 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
     setData({ loading: true });
     // send the nonce to your server
     // nonce = data.instance.requestPaymentMethod()
-    let nonce;
-    let getNonce = data.instance
-      .requestPaymentMethod()
-      .then((data) => {
+    //let nonce;
+    //let getNonce = data.instance
+      //.requestPaymentMethod()
+      //.then((data) => {
         // console.log(data);
-        nonce = data.nonce;
+        //nonce = data.nonce;
         // once you have nonce (card type, card number) send nonce as 'paymentMethodNonce'
         // and also total to be charged
         // console.log(
@@ -83,7 +95,7 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
         //     getTotal(products)
         // );
         const paymentData = {
-          paymentMethodNonce: nonce,
+          paymentMethodNonce: 'online',
           amount: getTotal(products),
         };
 
@@ -95,8 +107,8 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
 
             const createOrderData = {
               products: products,
-              transaction_id: response.transaction.id,
-              amount: response.transaction.amount,
+              transaction_id: makeid(32),
+              amount: paymentData.amount,
               address: deliveryAddress,
             };
 
@@ -110,26 +122,18 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
                     success: true,
                   });
                 });
-              })
-              .catch((error) => {
-                console.log(error);
-                setData({ loading: false });
-              });
-          })
-          .catch((error) => {
-            console.log(error);
-            setData({ loading: false });
-          });
+              }).catch((e) => console.log(e))
+          
+            //for (const product of products){
+              //destroy(product._id)
+            //}
+            
       })
-      .catch((error) => {
-        // console.log("dropin error: ", error);
-        setData({ ...data, error: error.message });
-      });
   };
 
   const showDropIn = () => (
     <div onBlur={() => setData({ ...data, error: '' })}>
-      {data.clientToken !== null && products.length > 0 ? (
+      {products.length > 0 ? (
         <div>
           <div className='gorm-group mb-3'>
             <label className='text-muted'>Delivery address:</label>
@@ -191,3 +195,13 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
 };
 
 export default Checkout;
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
