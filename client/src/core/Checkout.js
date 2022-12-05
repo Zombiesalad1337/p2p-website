@@ -79,6 +79,7 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
 
   const buy = () => {
     setData({ loading: true });
+    window.open('https://rzp.io/l/HgnvLzmJRU');
     // send the nonce to your server
     // nonce = data.instance.requestPaymentMethod()
     //let nonce;
