@@ -1,7 +1,7 @@
 {
-  "name": "mern-ecommerce",
+  "name": "p2p-website",
   "version": "1.0.0",
-  "description": "ecommerce site",
+  "description": "p2p ecommerce site",
   "main": "server.js",
   "engines": {
     "node": "16.7.0",
