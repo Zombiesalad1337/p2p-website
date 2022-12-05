@@ -1,7 +1,7 @@
 {
   "name": "p2p-website",
   "version": "1.0.0",
-  "description": "p2p ecommerce site",
+  "description": "p2p ecommerce site for videogame products",
   "main": "server.js",
   "engines": {
     "node": "16.7.0",
